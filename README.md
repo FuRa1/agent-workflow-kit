@@ -3,7 +3,7 @@
 A personal catalog of skills for coding workflows: from small checks to long-running
 processes with artifacts, work resumption and human review.
 
-**MVP 1.0.0 · experimental · published.**
+**v1.3.0 · experimental · published.**
 Working dependency-free CLI and four skills. This is a standalone toolkit:
 nothing is installed to your application just from its presence in the folder.
 
@@ -104,6 +104,52 @@ If you prefer manual setup:
    - Reference the installed `SKILL.md` file
    - Provide design files or specifications
    - Your system will request approval before running
+
+## Using Design-Polish: Complete Example
+
+Once installed, design-polish can be used to implement and polish screens. Here's how:
+
+### Step 1: Prepare Your Input
+
+Gather the design reference and specify scope:
+
+```
+I have a new checkout flow design in designs/checkout-v2.figma. 
+The current implementation is at pages/checkout/ directory.
+Please implement the new design with these constraints:
+- Mobile and desktop layouts
+- Support for hover and loading states
+- Must preserve existing form validation
+- Test with npm run test:checkout
+```
+
+### Step 2: System Analysis
+
+The system will:
+- Analyze your current implementation
+- Compare against the design reference
+- Check build configuration and test scripts
+- Identify which components need changes
+- Request approval to start work
+
+### Step 3: Approval and Execution
+
+After your approval, it will:
+- Create reference screenshots from the design
+- Build your app and capture current state
+- Compare current vs. target visually
+- Implement coherent changes iteratively
+- Run quality verification (tests, linting, etc.)
+- Document all changes with before/after comparisons
+
+### Step 4: Review Results
+
+You'll receive:
+- Implementation status and completion percentage
+- Before/after screenshots for each component
+- Test results and any failures
+- List of unresolved issues (if any)
+- Recommendations for follow-up work
 
 ## Supported References and Input Formats
 
