@@ -1,0 +1,15 @@
+{
+  "id": "design-implementation",
+  "skill": "design-polish",
+  "stages": [
+    "resolve-input",
+    "analyse-signature",
+    "user-approval",
+    "implement-or-polish",
+    "capture-compare",
+    "verify",
+    "record-human-review"
+  ],
+  "execution": "agent",
+  "note": "Repeated passes are default; gallery target names are independent of iteration."
+}

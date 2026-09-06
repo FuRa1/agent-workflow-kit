@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "projectId": "perudo",
+  "defaultReference": "designs/perudo-mobile-consolidated.dc.html",
+  "runRoot": "demo/visual-review/design-polish",
+  "reviewFile": "demo/visual-review/design-polish/REVIEW.md",
+  "catalogFile": "demo/visual-review/design-polish/catalog.json",
+  "instructionFiles": [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "ISSUES.md"
+  ],
+  "tokenFiles": [
+    "client/src/theme/_tokens.scss",
+    "client/src/theme/_mixins.scss"
+  ],
+  "historicalCaptureRoots": [
+    "screens",
+    "demo/visual-review",
+    "client/e2e/.screenshots"
+  ],
+  "captureManifest": "client/e2e/visual-review.cases.json",
+  "commands": {
+    "start": "npm run dev",
+    "capture": "npm run visual:review",
+    "verify": [
+      "npm run lint",
+      "npm run typecheck",
+      "npm test",
+      "npm run build"
+    ],
+    "e2e": "npm run e2e"
+  },
+  "galleryTargets": {
+    "circular": {
+      "layout": "clockwise",
+      "reference": "designs/perudo-spotlight-gallery.dc.html",
+      "panels": [
+        "B-4P",
+        "B-12P"
+      ]
+    }
+  },
+  "dimensions": {
+    "viewports": [
+      [
+        320,
+        720
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        768,
+        1024
+      ],
+      [
+        1440,
+        900
+      ]
+    ],
+    "states": [
+      "entry",
+      "lobby",
+      "opening-roll",
+      "hand-roll",
+      "bidding",
+      "waiting",
+      "reveal",
+      "spectator",
+      "match-end"
+    ],
+    "densityCounts": [
+      2,
+      3,
+      4,
+      8,
+      9,
+      12
+    ],
+    "roles": [
+      "self",
+      "opponent",
+      "spectator"
+    ]
+  },
+  "constraints": [
+    "visual:review hardcodes consolidated reference; inspect design-compare.mjs for custom-source capture",
+    "Use npm.cmd on Windows when npm.ps1 is blocked",
+    "No shared/server rule changes or persistence",
+    "No bitmap exports or private match snapshots bundled in skill"
+  ]
+}

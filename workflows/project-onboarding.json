@@ -1,0 +1,14 @@
+{
+  "id": "project-onboarding",
+  "skill": "project-bootstrap",
+  "stages": [
+    "inspect",
+    "choose-preset",
+    "preview",
+    "user-approval",
+    "apply",
+    "doctor"
+  ],
+  "execution": "agent",
+  "note": "CLI prints this contract; it does not execute agent stages."
+}

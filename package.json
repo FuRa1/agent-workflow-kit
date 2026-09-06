@@ -1,0 +1,34 @@
+{
+  "name": "agent-workflow-kit",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Experimental project-local agent workflow skills installer",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=22"
+  },
+  "bin": {
+    "workflow-kit": "bin/workflow-kit.mjs"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "check": "node scripts/check.mjs"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "skills/",
+    "presets/",
+    "workflows/",
+    "scripts/",
+    "tests/",
+    "docs/",
+    "examples/",
+    "catalog.json",
+    "CONTRIBUTING.md",
+    "README.md",
+    "LICENSE-DECISION.md",
+    "SECURITY.md"
+  ]
+}

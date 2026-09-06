@@ -1,0 +1,20 @@
+{
+  "id": "enterprise",
+  "description": "Dependency-aware changes, explicit ownership and compatibility decisions",
+  "skills": [
+    "project-bootstrap",
+    "design-polish",
+    "skill-author",
+    "commit-hook"
+  ],
+  "policy": [
+    "Read project instructions and .workflow-kit/project.json before implementation.",
+    "Map affected packages, contracts, ownership and consumers before editing.",
+    "For cross-package changes record compatibility, migration, rollback and acceptance checks.",
+    "Reuse existing team conventions; do not invent approvers or mandate unavailable services.",
+    "Use independent review for material changes when available; disclose when unavailable.",
+    "Run scoped checks during iteration and project-required integration gates before handoff.",
+    "Load dependency slices, not the whole monorepo; persist short checkpoints to avoid rediscovery.",
+    "Never weaken correctness, data privacy or access controls because a time budget is short."
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "skills": [
+    {
+      "id": "design-polish",
+      "path": "skills/design-polish",
+      "category": "design-led-implementation",
+      "complexity": "advanced",
+      "kind": "stateful-workflow",
+      "maturity": "experimental",
+      "version": "0.1.0",
+      "requires": [
+        "filesystem",
+        "shell",
+        "real-browser-capture",
+        "image-inspection"
+      ],
+      "sideEffects": [
+        "scoped-client-edits",
+        "local-evidence-records"
+      ],
+      "approval": "preflight-before-implementation",
+      "behavioralValidation": "not-yet-run"
+    },
+    {
+      "id": "project-bootstrap",
+      "path": "skills/project-bootstrap",
+      "category": "project-setup",
+      "complexity": "intermediate",
+      "kind": "workflow",
+      "maturity": "experimental",
+      "version": "0.1.0",
+      "approval": "preview-before-install",
+      "behavioralValidation": "not-yet-run"
+    },
+    {
+      "id": "skill-author",
+      "path": "skills/skill-author",
+      "category": "skill-authoring",
+      "complexity": "intermediate",
+      "kind": "workflow",
+      "maturity": "experimental",
+      "version": "0.1.0",
+      "approval": "scoped-authoring-request",
+      "behavioralValidation": "not-yet-run"
+    },
+    {
+      "id": "commit-hook",
+      "path": "skills/commit-hook",
+      "category": "developer-tooling",
+      "complexity": "intermediate",
+      "kind": "planning-workflow",
+      "maturity": "experimental",
+      "version": "0.1.0",
+      "approval": "explicit-hook-installation",
+      "behavioralValidation": "not-yet-run"
+    }
+  ]
+}

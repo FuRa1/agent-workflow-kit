@@ -1,0 +1,18 @@
+{
+  "id": "quick-mvp",
+  "description": "Small, reversible increments with concise planning and targeted context",
+  "skills": [
+    "project-bootstrap",
+    "design-polish",
+    "skill-author"
+  ],
+  "policy": [
+    "Read project instructions and .workflow-kit/project.json before implementation.",
+    "Keep plans in chat for bounded work; persist decisions only when another session needs them.",
+    "Load only the current skill, relevant reference sections and affected code.",
+    "Use existing architecture and dependencies; deliver one coherent slice at a time.",
+    "Use test-first behavior changes and available quality gates; do not skip safety to save tokens.",
+    "Ask for missing product decisions and destructive actions; do not repeatedly reconfirm approved scope.",
+    "Summarize changed files, verification and remaining work concisely."
+  ]
+}

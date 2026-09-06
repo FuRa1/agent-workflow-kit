@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "projectId": "configure-for-your-project",
+  "defaultReference": null,
+  "runRoot": ".design-polish",
+  "reviewFile": ".design-polish/REVIEW.md",
+  "catalogFile": ".design-polish/catalog.json",
+  "instructionFiles": [],
+  "tokenFiles": [],
+  "historicalCaptureRoots": [],
+  "captureManifest": null,
+  "commands": {
+    "start": null,
+    "capture": null,
+    "verify": [],
+    "e2e": null
+  },
+  "galleryTargets": {},
+  "dimensions": {
+    "viewports": [],
+    "states": [],
+    "densityCounts": [],
+    "roles": []
+  },
+  "constraints": [
+    "Preserve existing architecture and user edits",
+    "No domain-rule changes without explicit approval",
+    "No commit/push/deploy without explicit request"
+  ]
+}
