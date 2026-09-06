@@ -44,21 +44,31 @@ node bin/workflow-kit.mjs workflow design-implementation
 `workflow` displays the contract, it doesn't run anything. `add commit-hook`
 installs instructions, **not a Git hook**. Full [CLI contract](docs/cli.md).
 
-### Manual Installation of Individual Skill
+### Installation for Any Workflow System
 
-1. Copy the **entire** `skills/design-polish` folder, including references and assets,
-   to your coding workflow's skills directory. Don't copy just SKILL.md.
-   For project-local code use `.claude/skills/design-polish/`,
-   for other workflows use `.agents/skills/design-polish/`.
-2. In the target project create `design-polish.project.json` based on the
-   [template](skills/design-polish/assets/project.example.json).
-   Verify paths, commands and limitations. Null and empty arrays mean
-   "not configured", not permission to invent values.
-3. Open a workflow session in the target project. Provide design HTML export,
-   image or instructions. If the skill isn't detected, ask to
-   read the installed SKILL.md explicitly.
-4. The workflow first analyzes changes and asks whether to start.
-   After approval it runs repeated passes within the agreed limit.
+The skills in this toolkit are designed to work with any AI system. To install a skill:
+
+1. **Copy the skill folder** to your system's skills directory:
+   ```text
+   cp -r skills/design-polish your-system/skills/
+   ```
+   Ensure you copy the **entire** folder including `SKILL.md`, references, and assets.
+
+2. **Configure your project** by creating a configuration file based on the
+   [template](skills/design-polish/assets/project.example.json):
+   - Copy the example to your project root
+   - Update paths, commands and settings for your environment
+   - Null and empty arrays mean "not configured"
+
+3. **Invoke the skill** through your workflow system:
+   - Provide the SKILL.md file path to your system
+   - Pass your design files, screenshots or specifications
+   - Your system will analyze requirements and ask for approval
+
+4. **Execution flow**:
+   - System performs initial analysis and requests confirmation
+   - After approval, executes configured passes
+   - Results are saved to the configured output directory
 
 ## Supported References and Input Formats
 
@@ -67,7 +77,7 @@ The design-polish skill accepts various input formats for design references:
 - **Design HTML exports** (`.html` files) - Full web page designs
 - **Screenshot images** (`.png`, `.jpg`) - Static screenshots of UI elements  
 - **Figma design files** (`.fig` or exported assets) - Vector design files
-- **Claude design files** (`.claude` or exported content) - Claude-specific formats
+- **Design system files** (`.dcx`, `.dc.html` or exported content) - Design system formats
 - **Design documentation** (`.md`, `.txt`) - Text-based design specifications
 - **HTML files with embedded designs** - Self-contained design documents
 
