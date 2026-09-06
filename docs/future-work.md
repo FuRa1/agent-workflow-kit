@@ -11,12 +11,16 @@ The tests use disposable directories. Never turn a test into a live installation
    model, inputs, observed files and pass/fail, including uncertainty.
 2. Add cross-platform CI once hosting/CI policy is approved. Current execution
    evidence is Windows/Node 22; Linux/macOS are not claimed tested.
-3. Add transactional writes/recovery journal and fault-injection tests. Cover
-   disk full, lock corruption and interruption between config and lock updates.
+3. Add a durable recovery journal and process-termination/power-loss tests.
+   Per-file staging and in-process rollback now cover injected disk-full failures
+   between config and lock writes, partial staging, and rollback failure. These
+   do not provide recovery after a crash; empty created directories may remain.
 4. Validate configuration with versioned JSON Schemas, including the complete
-   design run/case records. Current CLI validates a narrow config contract only.
-5. Make doctor validate installed skill inventory independently of lock entries
-   and identify stale bundle paths; maintain backward-compatible state migrations.
+   design adapter and run/case records. Project and lock v1 schemas are now bundled
+   and enforced without dependencies; complete design schemas remain pending.
+5. Maintain backward-compatible state migrations. Doctor now checks required
+   bundle inventory independently of lock entries and warns about stale paths;
+   automatic migration and cleanup remain unimplemented.
 6. Choose license, copyright attribution and package scope before public release.
 
 ## P1 — useful next increments

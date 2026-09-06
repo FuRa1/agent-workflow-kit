@@ -120,7 +120,7 @@ test('update installs a new bundled revision only for unchanged managed files', 
   const copy = fs.mkdtempSync(path.join(os.tmpdir(), 'workflow-kit-bundle-'));
   t.after(() => fs.rmSync(copy, { recursive: true, force: true }));
   const source = path.resolve(path.dirname(cli), '..');
-  for (const entry of ['bin', 'lib', 'skills', 'presets', 'workflows', 'catalog.json', 'package.json']) {
+  for (const entry of ['bin', 'lib', 'schemas', 'skills', 'presets', 'workflows', 'catalog.json', 'package.json']) {
     fs.cpSync(path.join(source, entry), path.join(copy, entry), { recursive: true });
   }
   const changed = 'skills/design-polish/SKILL.md';
@@ -162,4 +162,62 @@ test('active installer guard prevents a competing apply', t => {
   assert.equal(run(root, 'init', 'quick-mvp', '--apply').code, 1);
   assert.equal(fs.existsSync(path.join(root, '.agents')), false);
   assert.equal(read(root, '.workflow-kit/install.guard'), 'another installer');
+});
+
+test('invalid lock data is rejected before installation writes', t => {
+  const root = project(t);
+  fs.mkdirSync(path.join(root, '.workflow-kit'));
+  for (const files of [[], { '.agents/skills/design-polish/SKILL.md': 'bad-hash' },
+    { 'package.json': 'a'.repeat(64) }]) {
+    const lock = JSON.stringify({ schemaVersion: 1, packageVersion: '0.1.0', files });
+    fs.writeFileSync(path.join(root, '.workflow-kit/lock.json'), lock);
+    assert.equal(run(root, 'init', 'quick-mvp', '--apply').code, 1);
+    assert.equal(fs.existsSync(path.join(root, '.agents')), false);
+    assert.equal(read(root, '.workflow-kit/lock.json'), lock);
+  }
+});
+
+test('doctor checks inventory even when lock entries are omitted', t => {
+  const root = project(t);
+  assert.equal(run(root, 'init', 'quick-mvp', '--apply').code, 0);
+  const file = '.agents/skills/design-polish/SKILL.md';
+  const lock = JSON.parse(read(root, '.workflow-kit/lock.json'));
+  delete lock.files[file];
+  fs.writeFileSync(path.join(root, '.workflow-kit/lock.json'), JSON.stringify(lock));
+  fs.unlinkSync(path.join(root, file));
+  const result = run(root, 'doctor');
+  assert.equal(result.code, 1);
+  assert.match(result.out, /Untracked required file/);
+});
+
+test('project config rejects duplicate skills and blank verification names', t => {
+  const root = project(t);
+  assert.equal(run(root, 'init', 'quick-mvp', '--apply').code, 0);
+  const original = JSON.parse(read(root, '.workflow-kit/project.json'));
+  for (const change of [{ skills: ['design-polish', 'design-polish'] },
+    { verifyScripts: [''] }, { skills: ['not-a-bundled-skill'] }]) {
+    const config = JSON.stringify({ ...original, ...change });
+    fs.writeFileSync(path.join(root, '.workflow-kit/project.json'), config);
+    assert.equal(run(root, 'update', '--apply').code, 1);
+    assert.equal(run(root, 'doctor').code, 1);
+    assert.equal(read(root, '.workflow-kit/project.json'), config);
+  }
+});
+
+test('a directory at lock.json fails before any skill writes', t => {
+  const root = project(t);
+  fs.mkdirSync(path.join(root, '.workflow-kit/lock.json'), { recursive: true });
+  assert.equal(run(root, 'init', 'quick-mvp', '--apply').code, 1);
+  assert.equal(fs.existsSync(path.join(root, '.agents')), false);
+});
+
+test('JSON null state files are invalid, not missing', t => {
+  for (const file of ['.workflow-kit/project.json', '.workflow-kit/lock.json', 'design-polish.project.json']) {
+    const root = project(t);
+    fs.mkdirSync(path.dirname(path.join(root, file)), { recursive: true });
+    fs.writeFileSync(path.join(root, file), 'null');
+    assert.equal(run(root, 'init', 'quick-mvp', '--apply').code, 1);
+    assert.equal(read(root, file), 'null');
+    assert.equal(fs.existsSync(path.join(root, '.agents')), false);
+  }
 });

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Workflow Kit project v1",
+  "type": "object",
+  "required": ["schemaVersion", "preset", "host", "skills", "packageManager", "verifyScripts"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "preset": { "enum": ["quick-mvp", "enterprise"] },
+    "host": { "enum": ["codex", "claude", "both"] },
+    "skills": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" } },
+    "packageManager": { "enum": [null, "npm", "pnpm", "yarn", "bun"] },
+    "verifyScripts": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "\\S" } }
+  },
+  "additionalProperties": true
+}

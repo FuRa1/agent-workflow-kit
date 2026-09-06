@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Workflow Kit managed lock v1",
+  "type": "object",
+  "required": ["schemaVersion", "packageVersion", "files"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "packageVersion": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:[-+][0-9A-Za-z.+-]+)?$" },
+    "files": {
+      "type": "object",
+      "propertyNames": { "pattern": "^(?:\\.workflow-kit/(?:POLICY\\.md|\\.gitignore)|\\.(?:agents|claude)/skills/[a-z][a-z0-9-]*/.+)$" },
+      "additionalProperties": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+    }
+  },
+  "additionalProperties": false
+}

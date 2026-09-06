@@ -20,6 +20,15 @@ the displayed operation's writes; agents still ask before invoking it for users.
 Output is JSON (except help/version); --json is accepted for explicit intent.
 Exit 0 means the operation/inspection succeeded; 1 means error or conflict.
 
+Project configuration and managed locks use bundled versioned JSON Schemas:
+[project v1](../schemas/project.v1.schema.json) and
+[lock v1](../schemas/lock.v1.schema.json). The dependency-free validator implements
+only the keywords used by these schemas. Project custom fields remain allowed;
+duplicate skills/scripts, blank script names, unknown bundled skills, unsupported
+versions, malformed hashes and lock paths outside managed locations are rejected.
+Design adapter/run/case schema validation is still pending. Standalone skill
+folders remain independent of the CLI and these schemas.
+
 ## Installed files
 
 - .agents/skills/ for Codex, .claude/skills/ for Claude, both for --host both.
@@ -51,19 +60,31 @@ settings expecting cleanup; old files remain. Added files are not an archive of
 user approvals or generated screenshots.
 
 An exclusive install.guard prevents concurrent cooperative installers; symlinked
-destination components are rejected. This is not a security sandbox against
-malicious concurrent filesystem mutation. Writes are not a multi-file transaction.
-If the process crashes, inspect installed files and guard ownership; do not
-blindly remove a live guard. Partial installations may require manual reconciliation.
+destination components are rejected. The lock is included in preview and all
+file preconditions are rechecked under the guard before writing. Files are staged
+alongside their destinations, then renamed (updates) or exclusively linked (creates).
+The filesystem must support hard links. Caught write failures roll back completed
+writes, including config changes; empty created directories may remain. Rollback
+refuses to overwrite files changed since this operation wrote them. If rollback
+fails, the error names affected paths and the guard remains to block another apply.
+
+This is not a security sandbox against malicious concurrent filesystem mutation
+or a crash-safe multi-file transaction. Backups exist only in memory; there is no
+durable recovery journal or power-loss guarantee. If the process crashes, inspect
+installed files, temporary files and guard ownership; do not blindly remove a live
+guard. Partial installations may require manual reconciliation.
 Never delete user files to clear an update conflict.
 
 ## Doctor boundaries
 
-doctor checks config, recorded installed hashes and existence of named package
+doctor checks config, required bundled inventory independently of lock entries,
+recorded installed hashes and existence of named package
 scripts. It never runs tests, validates their quality, launches a browser, checks
 a design against pixels or guarantees host skill discovery. Warnings distinguish
 incomplete project adapters from broken installation. Non-Node projects work as
 skill installations, but command auto-detection is currently package.json-only.
+Stale managed paths outside the current configuration/bundle are reported as
+warnings and retained. Hash checks still report missing or modified stale files.
 
 ## Local package
 
