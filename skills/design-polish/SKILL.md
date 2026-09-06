@@ -50,3 +50,5 @@ This skill supports automatic updates with the following features:
 - Preview of changes before applying updates
 
 Use `workflow-kit update design-polish` to update this skill when new versions are available.
+
+**Note**: When using `workflow-kit update --all`, only skills that are currently installed and used in your project will be updated. New skills will not be automatically installed.

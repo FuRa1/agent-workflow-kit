@@ -86,4 +86,6 @@ When updates are available for the design-polish skill:
 **Update Commands**:
 - `workflow-kit update design-polish` - Update the design-polish skill
 - `workflow-kit update --check` - Check for available updates without applying
-- `workflow-kit update --all` - Update all skills in the project
+- `workflow-kit update --all` - Update all skills currently installed/used in this project
+
+**Note**: The `--all` flag only updates skills that are already installed and used in your project. It will not install new skills that aren't currently configured.
