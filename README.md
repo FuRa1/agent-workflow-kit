@@ -3,7 +3,7 @@
 A personal catalog of skills for coding workflows: from small checks to long-running
 processes with artifacts, work resumption and human review.
 
-**v1.3.0 · experimental · published.**
+**v1.4.0 · experimental · published.**
 Working dependency-free CLI and four skills. This is a standalone toolkit:
 nothing is installed to your application just from its presence in the folder.
 
@@ -19,91 +19,75 @@ nothing is installed to your application just from its presence in the folder.
 Machine-readable catalog: [catalog.json](catalog.json).
 Classification and repository comparison: [docs/repository-analysis.md](docs/repository-analysis.md).
 
-## Smart Project Setup
+## Getting Started with Design-Polish
 
-The toolkit includes an intelligent setup workflow that analyzes your project:
+### Step 1: Install the Toolkit
 
-**With any workflow system** (uses the project-bootstrap skill):
-1. Share your project root with the workflow system
-2. Request project initialization and skill setup
-3. The system analyzes your structure, package manager, and scripts
-4. It generates a customized setup plan
-5. Review the plan, approve, and the system applies configuration automatically
-
-The system learns about:
-- Your build tools and package manager (npm, yarn, pnpm)
-- Available test and verification scripts
-- Project structure and frameworks
-- Browser testing capabilities
-- Design file locations
-
-No manual configuration of paths or commands needed—the system figures it out.
-
-## Quick Start
-
-### CLI: Preview First
-
-Node 22+, no dependency installation. From this starter's root:
-
-```text
-node bin/workflow-kit.mjs init quick-mvp --project <project-folder> --host both
-node bin/workflow-kit.mjs init enterprise --project <project-folder> --host both
+```bash
+npm install agent-workflow-ui-kit
 ```
 
-These are alternative presets, not sequential steps. After reviewing the plan
-repeat your chosen command with `--apply`. No records by default.
+### Step 2: Initialize Your Project (One Time)
 
-```text
-node bin/workflow-kit.mjs doctor --project <project-folder>
-node bin/workflow-kit.mjs add commit-hook --project <project-folder> --apply
-node bin/workflow-kit.mjs update --project <project-folder> --dry-run
-node bin/workflow-kit.mjs list
-node bin/workflow-kit.mjs workflow design-implementation
-```
+Tell the system about your project structure:
 
-`workflow` displays the contract, it doesn't run anything. `add commit-hook`
-installs instructions, **not a Git hook**. Full [CLI contract](docs/cli.md).
-
-### Automatic Installation via CLI
-
-The toolkit includes an automatic installer that analyzes your project and sets up skills correctly:
-
-```text
-# Initialize your project first
-npm install @workflow-kit/agent-kit
+```bash
 npx workflow-kit init quick-mvp --project . --apply
-
-# Add individual skills
-npx workflow-kit add design-polish --apply
-npx workflow-kit add project-bootstrap --apply
 ```
 
-The installer automatically:
-- Detects your package manager and build tools
-- Analyzes project structure and scripts
-- Creates proper configuration files
-- Sets up skill directories for your environment
-- Configures design-polish adapter with your project paths
+This asks you questions about:
+- Your build system (npm, yarn, pnpm)
+- Where to run tests
+- What output directories to use
 
-### Manual Installation (Advanced)
+**What it does**: Analyzes your project and creates `.workflow-kit/project.json` configuration.
 
-If you prefer manual setup:
+### Step 3: Add Design-Polish Skill
 
-1. **Copy the skill folder** to your system's skills directory:
-   ```text
-   cp -r skills/design-polish your-system/skills/
-   ```
+```bash
+npx workflow-kit add design-polish --apply
+```
 
-2. **Create configuration** based on the
-   [template](skills/design-polish/assets/project.example.json):
-   - Ensure paths match your project structure
-   - Configure build commands and test scripts
-   - Set up output directories for results
+**What it does automatically**:
+- Copies design-polish skill files to your project
+- Creates `design-polish.project.json` with your paths
+- Detects your build commands and test scripts
+- Sets up directories for design comparisons
 
-3. **Invoke through your system**:
-   - Reference the installed `SKILL.md` file
-   - Provide design files or specifications
-   - Your system will request approval before running
+### Step 4: Use Design-Polish
+
+Tell your workflow system to use design-polish:
+
+```
+I want to implement a new checkout screen from this design file: designs/checkout-v2.html
+```
+
+**The system will**:
+1. Read the design file
+2. Analyze your current implementation
+3. Ask you to approve before making changes
+4. Implement the design iteratively
+5. Run tests after each change
+6. Show you before/after comparisons
+
+---
+
+### What If You're Using the CLI Directly?
+
+If you want to use the workflow-kit CLI directly (not through a workflow system):
+
+```bash
+# Check what's installed
+npx workflow-kit doctor
+
+# Update skills
+npx workflow-kit update design-polish
+
+# See all available workflows
+npx workflow-kit list
+```
+
+For full CLI reference, see [docs/cli.md](docs/cli.md).
 
 ## Using Design-Polish: Complete Example
 
