@@ -19,6 +19,26 @@ nothing is installed to your application just from its presence in the folder.
 Machine-readable catalog: [catalog.json](catalog.json).
 Classification and repository comparison: [docs/repository-analysis.md](docs/repository-analysis.md).
 
+## Smart Project Setup
+
+The toolkit includes an intelligent setup workflow that analyzes your project:
+
+**With any workflow system** (uses the project-bootstrap skill):
+1. Share your project root with the workflow system
+2. Request project initialization and skill setup
+3. The system analyzes your structure, package manager, and scripts
+4. It generates a customized setup plan
+5. Review the plan, approve, and the system applies configuration automatically
+
+The system learns about:
+- Your build tools and package manager (npm, yarn, pnpm)
+- Available test and verification scripts
+- Project structure and frameworks
+- Browser testing capabilities
+- Design file locations
+
+No manual configuration of paths or commands needed—the system figures it out.
+
 ## Quick Start
 
 ### CLI: Preview First
@@ -44,31 +64,46 @@ node bin/workflow-kit.mjs workflow design-implementation
 `workflow` displays the contract, it doesn't run anything. `add commit-hook`
 installs instructions, **not a Git hook**. Full [CLI contract](docs/cli.md).
 
-### Installation for Any Workflow System
+### Automatic Installation via CLI
 
-The skills in this toolkit are designed to work with any AI system. To install a skill:
+The toolkit includes an automatic installer that analyzes your project and sets up skills correctly:
+
+```text
+# Initialize your project first
+npm install @workflow-kit/agent-kit
+npx workflow-kit init quick-mvp --project . --apply
+
+# Add individual skills
+npx workflow-kit add design-polish --apply
+npx workflow-kit add project-bootstrap --apply
+```
+
+The installer automatically:
+- Detects your package manager and build tools
+- Analyzes project structure and scripts
+- Creates proper configuration files
+- Sets up skill directories for your environment
+- Configures design-polish adapter with your project paths
+
+### Manual Installation (Advanced)
+
+If you prefer manual setup:
 
 1. **Copy the skill folder** to your system's skills directory:
    ```text
    cp -r skills/design-polish your-system/skills/
    ```
-   Ensure you copy the **entire** folder including `SKILL.md`, references, and assets.
 
-2. **Configure your project** by creating a configuration file based on the
+2. **Create configuration** based on the
    [template](skills/design-polish/assets/project.example.json):
-   - Copy the example to your project root
-   - Update paths, commands and settings for your environment
-   - Null and empty arrays mean "not configured"
+   - Ensure paths match your project structure
+   - Configure build commands and test scripts
+   - Set up output directories for results
 
-3. **Invoke the skill** through your workflow system:
-   - Provide the SKILL.md file path to your system
-   - Pass your design files, screenshots or specifications
-   - Your system will analyze requirements and ask for approval
-
-4. **Execution flow**:
-   - System performs initial analysis and requests confirmation
-   - After approval, executes configured passes
-   - Results are saved to the configured output directory
+3. **Invoke through your system**:
+   - Reference the installed `SKILL.md` file
+   - Provide design files or specifications
+   - Your system will request approval before running
 
 ## Supported References and Input Formats
 
