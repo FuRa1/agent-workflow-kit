@@ -3,7 +3,7 @@
 A personal catalog of skills for coding workflows: from small checks to long-running
 processes with artifacts, work resumption and human review.
 
-**v1.4.0 · experimental · published.**
+**v1.5.0 · experimental · published.**
 Working dependency-free CLI and four skills. This is a standalone toolkit:
 nothing is installed to your application just from its presence in the folder.
 
@@ -19,75 +19,58 @@ nothing is installed to your application just from its presence in the folder.
 Machine-readable catalog: [catalog.json](catalog.json).
 Classification and repository comparison: [docs/repository-analysis.md](docs/repository-analysis.md).
 
-## Getting Started with Design-Polish
+## Setup Design-Polish (2 Steps)
 
-### Step 1: Install the Toolkit
+### Step 1: Install Toolkit
 
 ```bash
 npm install agent-workflow-ui-kit
 ```
 
-### Step 2: Initialize Your Project (One Time)
-
-Tell the system about your project structure:
+### Step 2: Install Design-Polish Skill
 
 ```bash
-npx workflow-kit init quick-mvp --project . --apply
+npx workflow-kit add design-polish
 ```
 
-This asks you questions about:
-- Your build system (npm, yarn, pnpm)
-- Where to run tests
-- What output directories to use
+**What it does**:
+- Copies design-polish skill files to `.claude/skills/design-polish/`
+- Analyzes your project structure
+- Creates `design-polish.project.json` with auto-detected paths
+- Configures build commands and test scripts
+- Sets up output directories
 
-**What it does**: Analyzes your project and creates `.workflow-kit/project.json` configuration.
+---
 
-### Step 3: Add Design-Polish Skill
+## Using Design-Polish
 
-```bash
-npx workflow-kit add design-polish --apply
-```
-
-**What it does automatically**:
-- Copies design-polish skill files to your project
-- Creates `design-polish.project.json` with your paths
-- Detects your build commands and test scripts
-- Sets up directories for design comparisons
-
-### Step 4: Use Design-Polish
-
-Tell your workflow system to use design-polish:
+Once installed, tell your workflow system:
 
 ```
 I want to implement a new checkout screen from this design file: designs/checkout-v2.html
 ```
 
-**The system will**:
-1. Read the design file
-2. Analyze your current implementation
-3. Ask you to approve before making changes
-4. Implement the design iteratively
-5. Run tests after each change
-6. Show you before/after comparisons
+**What happens**:
+1. System reads the design file
+2. Analyzes your current implementation
+3. Asks for approval before making changes
+4. Implements the design iteratively
+5. Runs tests after each change
+6. Shows before/after comparisons
+7. Documents what was changed and what remains
 
 ---
 
-### What If You're Using the CLI Directly?
+## Command Reference
 
-If you want to use the workflow-kit CLI directly (not through a workflow system):
+Direct CLI usage (optional):
 
 ```bash
-# Check what's installed
-npx workflow-kit doctor
-
-# Update skills
-npx workflow-kit update design-polish
-
-# See all available workflows
-npx workflow-kit list
+npx workflow-kit add design-polish          # Install skill
+npx workflow-kit update design-polish       # Update to latest version
+npx workflow-kit doctor                     # Check health of installation
+npx workflow-kit list                       # See available skills
 ```
-
-For full CLI reference, see [docs/cli.md](docs/cli.md).
 
 ## Using Design-Polish: Complete Example
 
