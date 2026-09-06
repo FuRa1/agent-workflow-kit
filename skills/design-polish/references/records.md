@@ -27,6 +27,12 @@ new findings can lower the percentage. No percentage means user approval.
 
 **Optimization Note**: Implement intelligent caching of signature computations to avoid redundant hash calculations for unchanged inputs. Use incremental processing where possible.
 
+**Update Capability**: The system tracks skill updates through:
+- Version information in lock files
+- Package dependency changes detection
+- Migration status tracking
+- Backward compatibility verification
+
 The human ledger, not JSON metrics, owns reviewed and accepted checkboxes.
 Only the user or their explicit scoped instruction can mark them. Viewed is not
 accepted. An ambiguous OK does not approve all cases. Preserve comments verbatim.
@@ -44,3 +50,9 @@ expected/actual, source, screenshots, attempts and a concrete acceptance check.
 Runtime logs and private input files are not release assets.
 
 **Optimization Note**: Generate reports incrementally rather than all at once to reduce token usage. Use templates and smart content insertion to minimize redundant processing.
+
+**Update Capability**: Reports include:
+- Update status information
+- Migration history
+- Dependency change impact analysis
+- Version compatibility notes

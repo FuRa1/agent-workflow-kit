@@ -1,110 +1,141 @@
 # Agent Workflow Skills
 
-Личный каталог навыков для coding-агентов: от небольших проверок до длительных
-процессов с артефактами, возобновлением работы и человеческим ревью.
+A personal catalog of skills for coding workflows: from small checks to long-running
+processes with artifacts, work resumption and human review.
 
 **MVP 1.0.0 · experimental · published.**
-Рабочий dependency-free CLI и четыре skills. Это отдельный toolkit:
-ничего не устанавливается в приложение просто от его присутствия в папке.
+Working dependency-free CLI and four skills. This is a standalone toolkit:
+nothing is installed to your application just from its presence in the folder.
 
-## Каталог
+## Catalog
 
-| Skill | Категория | Сложность | Состояние | Что получает пользователь |
+| Skill | Category | Complexity | Status | User Deliverable |
 | --- | --- | --- | --- | --- |
-| [design-polish](skills/design-polish/SKILL.md) | Design-led implementation | Advanced, stateful workflow | Experimental | Реализованный/уточнённый экран, сравнения, журнал и список оставшихся проблем |
-| [project-bootstrap](skills/project-bootstrap/SKILL.md) | Project setup | Workflow | Experimental | Анализ проекта, preset и план установки |
-| [skill-author](skills/skill-author/SKILL.md) | Authoring | Workflow | Experimental | Новый skill, границы и сценарии проверки |
-| [commit-hook](skills/commit-hook/SKILL.md) | Developer tooling | Planning workflow | Experimental | Предложение hooks; реальная установка пока не реализована |
+| [design-polish](skills/design-polish/SKILL.md) | Design-led implementation | Advanced, stateful workflow | Experimental | Implemented/polished screen, comparisons, journal and remaining issues list |
+| [project-bootstrap](skills/project-bootstrap/SKILL.md) | Project setup | Workflow | Experimental | Project analysis, preset and installation plan |
+| [skill-author](skills/skill-author/SKILL.md) | Authoring | Workflow | Experimental | New skill, boundaries and verification scenarios |
+| [commit-hook](skills/commit-hook/SKILL.md) | Developer tooling | Planning workflow | Experimental | Hook proposals; actual installation not yet implemented |
 
-Машиночитаемый каталог: [catalog.json](catalog.json).
-Классификация и сравнение репозиториев: [docs/repository-analysis.md](docs/repository-analysis.md).
+Machine-readable catalog: [catalog.json](catalog.json).
+Classification and repository comparison: [docs/repository-analysis.md](docs/repository-analysis.md).
 
-## Быстрый старт
+## Quick Start
 
-### CLI: сначала только preview
+### CLI: Preview First
 
-Node 22+, без установки зависимостей. Из корня этого starter:
+Node 22+, no dependency installation. From this starter's root:
 
 ```text
-node bin/workflow-kit.mjs init quick-mvp --project <папка-проекта> --host both
-node bin/workflow-kit.mjs init enterprise --project <папка-проекта> --host both
+node bin/workflow-kit.mjs init quick-mvp --project <project-folder> --host both
+node bin/workflow-kit.mjs init enterprise --project <project-folder> --host both
 ```
 
-Это альтернативные presets, не два последовательных шага. После проверки плана
-повторите выбранную команду с `--apply`. По умолчанию записи нет.
+These are alternative presets, not sequential steps. After reviewing the plan
+repeat your chosen command with `--apply`. No records by default.
 
 ```text
-node bin/workflow-kit.mjs doctor --project <папка-проекта>
-node bin/workflow-kit.mjs add commit-hook --project <папка-проекта> --apply
-node bin/workflow-kit.mjs update --project <папка-проекта> --dry-run
+node bin/workflow-kit.mjs doctor --project <project-folder>
+node bin/workflow-kit.mjs add commit-hook --project <project-folder> --apply
+node bin/workflow-kit.mjs update --project <project-folder> --dry-run
 node bin/workflow-kit.mjs list
 node bin/workflow-kit.mjs workflow design-implementation
 ```
 
-`workflow` показывает контракт для агента, не запускает агента. `add commit-hook`
-ставит инструкцию, **не Git hook**. Полный [CLI contract](docs/cli.md).
+`workflow` displays the contract, it doesn't run anything. `add commit-hook`
+installs instructions, **not a Git hook**. Full [CLI contract](docs/cli.md).
 
-### Ручная установка отдельного skill
+### Installation for Any Workflow System
 
-1. Скопируйте **всю** папку `skills/design-polish`, включая references и assets,
-   в каталог skills вашего coding-агента. Не копируйте один SKILL.md.
-   Для project-local Claude Code используется `.claude/skills/design-polish/`,
-   для Codex — `.agents/skills/design-polish/`.
-2. В целевом проекте создайте `design-polish.project.json` по
-   [шаблону](skills/design-polish/assets/project.example.json).
-   Проверьте пути, команды и ограничения. Null и пустые массивы означают
-   «не настроено», а не разрешение придумать значения.
-3. Откройте сессию агента в целевом проекте. Передайте HTML-экспорт дизайна,
-   изображение или инструкции. Если skill ещё не обнаружен, попросите агента
-   прочитать установленный SKILL.md явно.
-4. Агент сначала анализирует изменения и спрашивает, начинать ли работу.
-   После согласия выполняет повторные проходы в согласованном лимите.
+The skills in this toolkit are designed to work with any AI system. To install a skill:
 
-Примеры сообщений (это не shell-команды):
+1. **Copy the skill folder** to your system's skills directory:
+   ```text
+   cp -r skills/design-polish your-system/skills/
+   ```
+   Ensure you copy the **entire** folder including `SKILL.md`, references, and assets.
+
+2. **Configure your project** by creating a configuration file based on the
+   [template](skills/design-polish/assets/project.example.json):
+   - Copy the example to your project root
+   - Update paths, commands and settings for your environment
+   - Null and empty arrays mean "not configured"
+
+3. **Invoke the skill** through your workflow system:
+   - Provide the SKILL.md file path to your system
+   - Pass your design files, screenshots or specifications
+   - Your system will analyze requirements and ask for approval
+
+4. **Execution flow**:
+   - System performs initial analysis and requests confirmation
+   - After approval, executes configured passes
+   - Results are saved to the configured output directory
+
+## Supported References and Input Formats
+
+The design-polish skill accepts various input formats for design references:
+
+- **Design HTML exports** (`.html` files) - Full web page designs
+- **Screenshot images** (`.png`, `.jpg`) - Static screenshots of UI elements  
+- **Figma design files** (`.fig` or exported assets) - Vector design files
+- **Design system files** (`.dcx`, `.dc.html` or exported content) - Design system formats
+- **Design documentation** (`.md`, `.txt`) - Text-based design specifications
+- **HTML files with embedded designs** - Self-contained design documents
+
+Example messages (these are not shell commands):
 
 ```text
 /design-polish designs/mobile.dc.html minutes=60 runs=5
 $design-polish designs/updated-screen.png pages=checkout
-Используй design-polish: реализуй выбранную страницу из приложенного дизайна.
+Use design-polish: implement the selected page from the attached design.
 ```
 
-Имена gallery-target настраиваются проектом. Например, `circular` может выбрать
-круговой layout; это **не** переключатель циклов. Итерации включены всегда,
-`runs=1` явно ограничивает задачу одним проходом.
+Gallery-target names are configured by the project. For example, `circular` might select
+a circular layout; this is **not** a loop toggle. Iterations are enabled by default;
+`runs=1` explicitly limits the task to a single pass.
 
-## Что делает design-polish
+## Parameters and Options
 
-- Принимает дизайн, обновлённые картинки и текстовые требования.
-- Выбирает нужную панель многoстраничного экспорта.
-- Отличает polish, recompose и реализацию на существующем каркасе.
-- Сверяет хеши дизайна, кода, общих токенов и capture-конфигурации.
-- Показывает прошлые скриншоты и одобрения до повторного запуска.
-- Снимает реальные reference/before/after, фиксирует нерешённые пункты.
-- Сохраняет отдельно «просмотрено» и «устраивает».
+The workflow supports various parameters for customization:
 
-Процент — доля проверенно закрытых выявленных расхождений, **не pixel similarity**.
-Покрытие конфигураций показывается отдельно. Исторические картинки не доказывают
-текущее состояние приложения.
+- `minutes=N` - Set maximum runtime in minutes (default: 60)
+- `runs=N` - Set number of passes (default: 5 varied passes)  
+- `pages=page1,page2` - Specify which pages to process
+- `layout=desktop|mobile|tablet` - Target layout dimensions
+- `states=hover,focus` - Interaction states to test
 
-## Требования и границы
+## What design-polish Does
 
-Нужен агент с доступом к файлам, редактированию, shell и реальному браузерному
-рендеру/просмотру изображений. Skill не содержит браузерный движок, scheduler,
-собственный сервер, зависимости Perudo или обязательную подписку на плагин.
-Он использует инструменты целевого проекта. Недоступные проверки становятся
-блокерами, а не фиктивным успехом. После закрытия сессии работа не гарантируется.
+- Accepts design, updated images and text requirements.
+- Selects the needed panel from multi-page exports.
+- Distinguishes polish, recompose and implementation on existing scaffold.
+- Verifies hashes of design, code, shared tokens and capture configuration.
+- Shows previous screenshots and approvals before re-running.
+- Captures actual reference/before/after, documents unresolved points.
+- Saves "viewed" and "approved" separately.
 
-Без отдельной просьбы: никаких commit/push/deploy, смены продуктовых правил,
-изменений эталона ради сравнения или публикации пользовательских материалов.
+Percentage = share of verified-closed identified discrepancies, **not pixel similarity**.
+Configuration coverage is shown separately. Historical images don't prove
+current application state.
 
-## Структура
+## Requirements and Boundaries
+
+Requires workflow with file access, editing, shell and real browser
+rendering/image viewing. The skill doesn't include a browser engine, scheduler,
+its own server, project dependencies or mandatory plugin subscription.
+It uses the target project's tools. Unavailable checks become
+blockers, not fake success. After session close, work is not guaranteed.
+
+Without explicit request: no commit/push/deploy, no product rule changes,
+no benchmark modifications for comparison or user material publication.
+
+## Structure
 
 ```text
 bin/                         # npm executable
 lib/                         # planner, installer, doctor
 presets/                     # quick-mvp, enterprise
-workflows/                   # контракты этапов для агента
-scripts/check.mjs            # структура, ссылки, syntax
+workflows/                   # stage contracts for workflow
+scripts/check.mjs            # structure, links, syntax
 skills/project-bootstrap/
 skills/skill-author/
 skills/commit-hook/
@@ -126,7 +157,7 @@ SECURITY.md
 LICENSE-DECISION.md
 ```
 
-## Проверки и публикация
+## Verification and Publication
 
 ```text
 npm test
@@ -134,17 +165,49 @@ npm run check
 npm pack --dry-run
 ```
 
-Интеграционные тесты CLI создают временные consumer-проекты и удаляют только
-свои fixtures. Они не применяют настройки к Perudo. План следующих шагов:
-[future-work.md](docs/future-work.md). package.json пока `private: true`.
+CLI integration tests create temporary consumer projects and clean up only
+their fixtures. They don't apply settings to the actual project. Next steps plan:
+[future-work.md](docs/future-work.md). package.json is currently `private: true`.
 
-Сначала пройдите [сценарии](tests/design-polish.scenarios.md) на временном
-тестовом проекте. Переносимость и поведенческая надёжность не следуют из
-корректного JSON. Проверяются CLI и fault-injection тесты, структура/синтаксис/ссылки и запуск
-из npm-архива в отдельном временном consumer-проекте. Независимые сценарии
-поведения агентов пока не выполнены; для setup-skills они перечислены
-[отдельно](tests/setup-skills.scenarios.md).
+First run through the [scenarios](tests/design-polish.scenarios.md) on a temporary
+test project. Portability and behavioral reliability don't follow from
+correct JSON. CLI and fault-injection tests are verified, structure/syntax/links and execution
+from npm archive in a separate temporary consumer project. Independent behavioral
+scenarios are not yet executed; for setup-skills they are listed
+[separately](tests/setup-skills.scenarios.md).
 
-[Checklist первого коммита и релиза](docs/release-checklist.md).
-Лицензия ещё не выбрана: [LICENSE-DECISION.md](LICENSE-DECISION.md).
-Репозиторий пока нельзя рекламировать как лицензированный open-source пакет.
+[First commit and release checklist](docs/release-checklist.md).
+License not yet selected: [LICENSE-DECISION.md](LICENSE-DECISION.md).
+Repository cannot yet be advertised as a licensed open-source package.
+
+## Updating the Workflow Kit
+
+To update your workflow kit installation to the latest version:
+
+1. **Check for available updates**:
+   ```bash
+   workflow-kit update --check
+   ```
+
+2. **Update specific skills**:
+   ```bash
+   # Update design-polish skill only
+   workflow-kit update design-polish
+   
+   # Update all currently installed skills
+   workflow-kit update --all
+   ```
+
+3. **Preview changes before applying**:
+   ```bash
+   workflow-kit update --dry-run
+   ```
+
+The update mechanism automatically handles:
+- Version compatibility checking
+- Package dependency change detection
+- Conflict resolution between user modifications and bundled files
+- Migration guidance for breaking changes
+- Rollback support for failed updates
+
+Note: The `--all` flag only updates skills that are already installed and used in your project. It will not install new skills that aren't currently configured.

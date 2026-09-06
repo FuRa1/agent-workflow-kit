@@ -1,23 +1,23 @@
-# Первый коммит и публикация
+# First Commit and Publication
 
-## До публичного релиза
+## Before Public Release
 
-- [ ] Выбрать имя GitHub-репозитория и владельца.
-- [ ] Выбрать лицензию и добавить LICENSE с корректной атрибуцией.
-- [ ] Проверить весь staged diff на приватные данные.
-- [ ] Проверить чистую установку всей папки skill.
-- [ ] Пройти tests/design-polish.scenarios.md независимым агентом.
-- [ ] Записать дату, среду, результат и ограничения каждого теста.
-- [ ] Проверить ссылки README и команды своей среды.
-- [ ] Оставить статус experimental до получения достаточных результатов.
+- [ ] Choose a GitHub repository name and owner.
+- [ ] Select a license and add LICENSE with proper attribution.
+- [ ] Check all staged diffs for private data.
+- [ ] Verify clean installation of the entire skill folder.
+- [ ] Run tests/design-polish.scenarios.md with independent verification.
+- [ ] Record date, environment, result and limitations for each test.
+- [ ] Verify README links and commands for your environment.
+- [ ] Keep status as experimental until sufficient results are obtained.
 
-## Локальный Git
+## Local Git
 
-Папка может находиться внутри другого проекта, поэтому перед первым git add
-убедитесь, что git rev-parse --show-toplevel указывает именно на корень этого
-starter. В текущем Perudo она исключена из родительского Git.
+The folder can be located inside another project, so before the first git add
+make sure that git rev-parse --show-toplevel points exactly to the root of this
+starter. In the current Perudo it is excluded from the parent Git.
 
-Если переносите папку в другое место без .git, выполните там git init -b main.
-Далее вручную проверьте git status --short и git diff --cached перед коммитом.
-Рекомендуемое первое сообщение: feat: initialize workflow skills catalog.
-Remote и push настраиваются владельцем отдельно; они не выполняются scaffold'ом.
+If you move the folder elsewhere without .git, run git init -b main there.
+Then manually verify git status --short and git diff --cached before committing.
+Recommended first commit message: feat: initialize workflow skills catalog.
+Remote and push are configured by the owner separately; they are not executed by the scaffold.

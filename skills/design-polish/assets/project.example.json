@@ -14,5 +14,11 @@
     "states": [],
     "densityCounts": [],
     "roles": []
+  },
+  "update": {
+    "enabled": true,
+    "checkOnStart": true,
+    "autoUpdate": false,
+    "migrationPath": "smart"
   }
 }
