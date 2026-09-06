@@ -2,7 +2,7 @@
 name: design-polish
 description: Implement, recompose or polish existing-app screens from design exports, gallery targets, screenshots or instructions when repeatable visual comparison and human review are needed.
 metadata:
-  version: "0.1.0"
+  version: "0.2.0"
   category: "design-led-implementation"
   complexity: "advanced"
   maturity: "experimental"
@@ -13,9 +13,10 @@ metadata:
 Read project instructions and .workflow-kit/POLICY.md when present. Preset policy
 does not override explicit user scope or this skill's preflight approval gate.
 
-Read [workflow](references/workflow.md) and [record contract](references/records.md)
-fully before taking task actions. Resolve those paths relative to this skill,
-not the consumer project. Resolve the project adapter relative to the project.
+Read [workflow](references/workflow.md) before taking task actions, and the
+[record contract](references/records.md) before reading or writing run records.
+Read each once per run. Resolve those paths relative to this skill, not the
+consumer project. Resolve the project adapter relative to the project.
 
 Accept a design file, image/attachment, pasted instructions, gallery target and
 optional pages/layout/minutes/runs. Read design-polish.project.json at the
@@ -30,6 +31,12 @@ Default maximum is 60 minutes, with five varied passes as a coverage target,
 not a requirement to fabricate edits. Explicit runs is a maximum. Validate
 positive finite minutes and positive integer runs.
 
+Both minutes and runs are ceilings, never quotas. Stop early when a pass closes
+no findings. Skip unchanged approved cases before capturing anything, and spend
+captures, image inspections and quality gates only where they decide something.
+Never trade away a capture, a re-verification of a changed case, or a recorded
+exit code to save effort.
+
 Run in the active coding-agent session, using the project's browser and quality
 tooling. No scheduler or background worker is supplied. A separate worker needs
 explicit authorization and a safe ownership mechanism.
@@ -39,16 +46,8 @@ data privacy and human approval. Never commit, push, deploy or change domain
 rules solely because this skill was invoked. This skill does not require any
 other installed skill: use available project procedures when applicable.
 
-## Update Capabilities
+## Updates
 
-This skill supports automatic updates with the following features:
-- Automatic version checking for skill files
-- Package dependency change detection
-- Smart conflict resolution between user modifications and bundled files
-- Migration guidance for breaking changes
-- Rollback support for failed updates
-- Preview of changes before applying updates
-
-Use `workflow-kit update design-polish` to update this skill when new versions are available.
-
-**Note**: When using `workflow-kit update --all`, only skills that are currently installed and used in your project will be updated. New skills will not be automatically installed.
+Update with `workflow-kit update design-polish`. Version checks, conflict
+resolution and rollback are CLI behavior; see `docs/cli.md`. `--all` updates
+only skills already installed in the project.

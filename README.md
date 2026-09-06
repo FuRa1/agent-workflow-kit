@@ -3,7 +3,7 @@
 A personal catalog of skills for coding workflows: from small checks to long-running
 processes with artifacts, work resumption and human review.
 
-**v1.6.0 · experimental · published.**
+**v1.7.0 · experimental · published.**
 Working dependency-free CLI and four skills. This is a standalone toolkit:
 nothing is installed to your application just from its presence in the folder.
 

@@ -25,13 +25,8 @@ denominator. Zero identified findings means null, not 100. Show fraction and
 checked/planned coverage beside percentage. Changed versions require rechecking;
 new findings can lower the percentage. No percentage means user approval.
 
-**Optimization Note**: Implement intelligent caching of signature computations to avoid redundant hash calculations for unchanged inputs. Use incremental processing where possible.
-
-**Update Capability**: The system tracks skill updates through:
-- Version information in lock files
-- Package dependency changes detection
-- Migration status tracking
-- Backward compatibility verification
+Compute each input hash once per run and reuse it across cases sharing that
+input. Write record deltas as work completes; do not regenerate whole records.
 
 The human ledger, not JSON metrics, owns reviewed and accepted checkboxes.
 Only the user or their explicit scoped instruction can mark them. Viewed is not
@@ -49,10 +44,5 @@ cases, command/exit-code results and nextCase. Every blocker contains reproducti
 expected/actual, source, screenshots, attempts and a concrete acceptance check.
 Runtime logs and private input files are not release assets.
 
-**Optimization Note**: Generate reports incrementally rather than all at once to reduce token usage. Use templates and smart content insertion to minimize redundant processing.
-
-**Update Capability**: Reports include:
-- Update status information
-- Migration history
-- Dependency change impact analysis
-- Version compatibility notes
+Append report sections per case rather than rewriting the report each pass.
+Findings unchanged since the last pass are referenced by id, not restated.
