@@ -1,51 +1,51 @@
-# Сравнение структуры каталогов skills
+# Skills Directory Structure Comparison
 
-Исследовано 2026-09-06 по первичным GitHub-страницам и спецификации.
-Это анализ удобства структуры, не рейтинг по звёздам и не доказательство того,
-за что каждый пользователь ценит эти проекты. Ветки могут измениться.
+Researched 2026-09-06 from primary GitHub pages and specifications.
+This analysis examines structural usability, not star ratings or proof of what
+each user values about these projects. Branches may change.
 
-| Проект | Наблюдаемая структура и README | Что берём |
+| Project | Observed Structure and README | What We Adopt |
 | --- | --- | --- |
-| Anthropic Skills | skills/, spec/, template/, отдельные notices; README объясняет понятие, группы и способы использования | Самодостаточные папки и разделение инструкции агента/README человека |
-| Superpowers | skills/, docs/, tests/, scripts/, hooks/ и host-specific metadata; README описывает процесс и входы для разных агентов | Явный процесс, сценарии проверки, честные требования к среде |
-| Vercel Agent Skills | skills/, packages/, scripts/; README перечисляет навыки с «Use when» и категориями | Каталог по задаче, короткие критерии выбора |
+| Anthropic Skills | skills/, spec/, template/, separate notices; README explains concepts, grouping and usage patterns | Self-contained folders and separation of skill instructions/human README |
+| Superpowers | skills/, docs/, tests/, scripts/, hooks/ and host-specific metadata; README describes process and inputs for different systems | Explicit process, verification scenarios, honest environment requirements |
+| Vercel Agent Skills | skills/, packages/, scripts/; README lists skills with "Use when" and categories | Task-based catalog with short selection criteria |
 
-Источники: [Anthropic](https://github.com/anthropics/skills),
+Sources: [Anthropic](https://github.com/anthropics/skills),
 [Superpowers](https://github.com/obra/superpowers),
 [Vercel](https://github.com/vercel-labs/agent-skills).
-Минимальный формат папки и frontmatter:
+Minimal folder format and frontmatter:
 [Agent Skills specification](https://agentskills.io/specification).
 
-## Классификация нашего design-polish
+## Design-polish Classification
 
 **Advanced / stateful workflow / design-led implementation / experimental.**
-Это наша классификация каталога, не официальный уровень спецификации.
+This is our catalog classification, not an official specification level.
 
-- Reference: знания/правила без обязательных изменений проекта.
-- Focused task: ограниченная операция с одним проверяемым результатом.
-- Workflow: несколько зависимых этапов, инструменты и проверка.
-- Stateful workflow: workflow плюс версии, checkpoints и человеческие решения.
+- Reference: knowledge/rules without required project changes.
+- Focused task: limited operation with a single verifiable result.
+- Workflow: multiple dependent stages, tools and verification.
+- Stateful workflow: workflow plus versions, checkpoints and human decisions.
 
-Design-polish относится к последнему: анализирует источники, иногда строит экран,
-рендерит, исправляет, проверяет, сохраняет состояние и ждёт человеческого решения.
-Сложность процесса не означает стабильность или необходимость отдельного плагина.
+Design-polish belongs to the last category: analyzes sources, sometimes builds screens,
+renders, fixes, verifies, saves state and waits for human decisions.
+Process complexity doesn't imply stability or the need for a separate plugin.
 
-## Решение по структуре
+## Structural Decision
 
-Один короткий SKILL.md направляет к двум обязательным references; шаблоны рядом,
-чтобы копирование всей папки не оставляло ссылки в исходном Perudo. Проектные
-пути/команды/галереи задаёт внешний JSON-адаптер. В README порядок:
-результат и статус → каталог → быстрый старт → возможности → ограничения →
-структура → проверки/лицензия. Это наше проектное решение на основе сравнения.
+One brief SKILL.md points to two required references; templates are nearby
+so copying the entire folder doesn't leave references in the source project. Project
+paths/commands/galleries are specified by an external JSON adapter. README order:
+result and status → catalog → quick start → features → limitations →
+structure → verification/license. This is our structural decision based on comparison.
 
-Не переносим hooks, marketplace metadata, бинарники, полный Superpowers или
-браузерный framework ради одного навыка. Установку плагином можно добавить
-позже после отдельной проверки каждой среды. Сейчас это skill collection,
-не marketplace и не обещание работы после закрытия окна.
+We don't include hooks, marketplace metadata, binaries, full Superpowers or
+browser frameworks for a single skill. Plugin installation can be added
+later after separate verification of each environment. For now this is a skill collection,
+not a marketplace and not a promise to work after window close.
 
-## Что ещё не доказано
+## What Remains Unproven
 
-Перенос в другое приложение, одинаковое поведение разных агентов, восстановление
-после квоты и устойчивость к ошибочным/злонамеренным экспортам требуют сценарных
-проверок. JSON-валидация не заменяет их. Реальные пользовательские изображения
-в этот starter не включались.
+Portability to other applications, consistent behavior across different systems, recovery
+after quota limits and resilience to incorrect/malicious exports require scenario
+verification. JSON validation doesn't replace this. Real user images
+are not included in this starter.
